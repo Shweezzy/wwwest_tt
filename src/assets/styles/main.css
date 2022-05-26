@@ -1,0 +1,39 @@
+body {
+  margin: 0 auto;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+}
+
+#app {
+  font-family: NotoSans;
+
+  --primary-100: #000000;
+  --primary-200: #f8f8f8;
+  --primary-300: #df4e3c;
+
+  --secondary-100: #aeaeae;
+  --secondary-200: #8d8d8d;
+  --secondary-300: #bdbdbd;
+  --secondary-400: #c4c4c4;
+  --secondary-500: #ffffff;
+  --secondary-600: #959595;
+  --secondary-700: #507a36;
+  color: var(--primary-200);
+}
+
+.vuescroll {
+}
