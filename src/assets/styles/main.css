@@ -35,5 +35,22 @@ ol {
   color: var(--primary-200);
 }
 
-.vuescroll {
+@media (min-width: 1400px) {
+  #app .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  #app .offers {
+    max-width: 1440px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #app .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  .car__row {
+    justify-content: center;
+  }
 }

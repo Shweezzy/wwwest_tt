@@ -1,74 +1,98 @@
 <template>
-  <div class="car-items">
-    <div class="car-item" data-aos="fade-up" v-for="(car, i) in cars" :key="i">
-      <b-card img-src="https://api.lorem.space/image/car?h=200" img-alt="Image" img-top tag="article" style="max-width: 20rem" class="card mb-2">
-        <b-card-text class="card-year"> {{ car.year }} </b-card-text>
-        <b-card-text class="card-model"> {{ car.make }} {{ car.model }}</b-card-text>
-        <b-card-text class="card-price">${{ car.price }}</b-card-text>
-      </b-card>
-    </div>
-  </div>
+  <b-container class="car__items">
+    <b-row class="car__row">
+      <b-col cols="12" sm="4" class="car__item" data-aos="fade-up" v-for="(car, i) in paginatedItems" :key="i">
+        <b-card img-src="https://api.lorem.space/image/car?h=200" img-alt="Image" img-top tag="article" style="max-width: 20rem" class="car__card mb-2">
+          <b-card-text class="car__year"> {{ car.year }} </b-card-text>
+          <b-card-text class="car__model"> {{ car.make }} {{ car.model }}</b-card-text>
+          <b-card-text class="car__price">${{ car.price }}</b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+
+    <b-row data-aos="fade-up" class="car__pagination">
+      <b-col md="6" class="my-1">
+        <b-pagination @change="onPageChanged" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 export default {
   props: {
-    numberOfVehicles: {
-      type: Number,
-      default: 52,
+    arrayOfCars: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {
     return {
-      api: "https://private-anon-affe6bba04-carsapi1.apiary-mock.com/cars",
-      cars: [],
+      items: this.arrayOfCars,
+      paginatedItems: this.arrayOfCars,
+      currentPage: 1,
+      perPage: 22,
+      totalRows: this.arrayOfCars.length,
     };
   },
-  watch: {
-    numberOfVehicles: {
-      handler() {
-        this.cars.length = this.numberOfVehicles;
-      },
+  computed: {},
+  methods: {
+    paginate(page_size, page_number) {
+      let itemsToParse = this.items;
+      this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
+    },
+    onPageChanged(page) {
+      this.paginate(this.perPage, page - 1);
     },
   },
   mounted() {
-    this.axios
-      .get(this.api)
-      .then((response) => {
-        if (response.data) this.cars = response.data;
-        this.cars.length = this.numberOfVehicles;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    this.paginate(this.perPage, 0);
   },
-  computed: {},
+  watch: {
+    arrayOfCars: {
+      handler() {
+        this.items = this.arrayOfCars;
+        this.paginatedItems = this.arrayOfCars;
+        this.totalRows = this.arrayOfCars.length;
+      },
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.car-items {
-  width: 100%;
+.car__items {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
-  .car-item {
+  width: 100%;
+  min-height: 300px;
+
+  .car__row {
+    min-height: 300px;
+    margin-top: 4.5%;
+    width: 88.6%;
+  }
+
+  .car__item {
     width: 295px;
     height: 366px;
-    margin: 0.9% 0.8% 0.7% 0.8%;
+    margin: 0 0% 1.5% 1.5%;
     box-shadow: 0px 0px 18px 0px #44444417;
+    padding: 0;
 
     &:hover {
       .card-img-top {
         filter: contrast(1.25);
       }
 
-      .card-model::before {
+      .car__model::before {
         transform: scaleX(2) !important;
       }
     }
 
-    .card {
+    .car__card {
       border: none;
 
       img {
@@ -79,24 +103,26 @@ export default {
 
       .card-body {
         display: flex;
-        padding: 1.3rem 1.3rem;
         flex-wrap: wrap;
 
-        .card-year {
+        padding: 1.3rem 1.3rem;
+
+        .car__year {
           font: 400 17px Poppins;
           color: var(--secondary-200);
         }
 
-        .card-model {
+        .car__model {
           font: 400 17px NotoSans;
           color: var(--primary-100);
           width: auto;
-          max-width: 80%;
-          margin-left: 4%;
           position: relative;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: pre;
+
+          max-width: 80%;
+          margin-left: 2%;
 
           &:first-letter {
             text-transform: uppercase;
@@ -106,17 +132,18 @@ export default {
             content: "";
             position: absolute;
             display: block;
+            background: var(--primary-100);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+
             width: 100%;
             height: 1px;
             bottom: 0;
             left: 0;
-            background: var(--primary-100);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
           }
         }
 
-        .card-price {
+        .car__price {
           margin-top: 16%;
           width: 100%;
 
@@ -124,6 +151,16 @@ export default {
           color: var(--primary-100);
         }
       }
+    }
+  }
+
+  .car__pagination {
+    width: 100%;
+    justify-content: center;
+
+    ul {
+      justify-content: center;
+      font: 500 12px NotoSans;
     }
   }
 }
