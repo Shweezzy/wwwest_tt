@@ -22,7 +22,7 @@
       </div>
     </main>
 
-    <article class="subscribe">
+    <article class="subscribe" data-aos="fade-up">
       <b-container class="subscribe__text">
         <h1>Haven't found a suitable vehicle?</h1>
         <h6>Sign up for our newsletter and be the first to know when we publish new vehicle offers.</h6>
@@ -40,7 +40,7 @@
     <div class="questions">
       <h1 class="questions__header">popular questions</h1>
 
-      <vs-collapse>
+      <vs-collapse data-aos="fade-up">
         <vs-collapse-item disabled icon-arrow="add">
           <div slot="header">1. Scope</div>
         </vs-collapse-item>
