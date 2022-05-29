@@ -35,22 +35,30 @@ ol {
   color: var(--primary-200);
 }
 
-@media (min-width: 1400px) {
+@media screen and (max-width: 1470px) {
   #app .container {
     max-width: 100%;
     padding: 0;
+  }
+  #app .car__items .car__row {
+    justify-content: space-around;
+    width: 100%;
+  }
+  #app .car__items {
+    width: 100%;
   }
   #app .offers {
     max-width: 1440px;
   }
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   #app .container {
     max-width: 100%;
-    padding: 0;
   }
-  .car__row {
-    justify-content: center;
+}
+@media (min-width: 992px) {
+  #app .container {
+    max-width: 100%;
   }
 }
