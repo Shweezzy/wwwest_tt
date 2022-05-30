@@ -40,10 +40,6 @@ ol {
     max-width: 100%;
     padding: 0;
   }
-  #app .car__items .car__row {
-    justify-content: space-around;
-    width: 100%;
-  }
   #app .car__items {
     width: 100%;
   }
@@ -55,6 +51,10 @@ ol {
 @media screen and (max-width: 1200px) {
   #app .container {
     max-width: 100%;
+  }
+  #app .car__items .car__row {
+    width: 100%;
+    justify-content: space-around;
   }
 }
 @media (min-width: 992px) {

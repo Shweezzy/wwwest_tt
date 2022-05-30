@@ -134,6 +134,10 @@ export default {
       flex-wrap: wrap;
       margin-left: 7%;
 
+      br {
+        display: unset;
+      }
+
       h1 {
         font-size: 50px;
         font-weight: 700;
@@ -345,7 +349,16 @@ export default {
     }
 
     .block-navs {
-      width: 726px;
+      width: 720px;
+
+      li:nth-child(1) {
+        width: 117px;
+      }
+
+      li:nth-child(2) {
+        width: 108px;
+      }
+
       a {
         position: relative;
 
